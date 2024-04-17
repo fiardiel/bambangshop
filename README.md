@@ -77,7 +77,46 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. In the Observer pattern diagram explained by the Head First Design Pattern book, Subscriber is defined as an interface. Explain based on your understanding of Observer design patterns, do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough?
+
+    **Answer:**
+    We still need an interface (or trait in Rust) in this case. The interface is needed to define the methods that the subscribers must implement. This way, the publisher can notify the subscribers without knowing the concrete type of the subscribers.
+
+2. id in Program and url in Subscriber is intended to be unique. Explain based on your understanding, is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently use is necessary for this case?
+
+    **Answer:**
+    Using DashMap is necessary for this case. DashMap is used to store the subscribers and their URLs. This way, we can easily access the subscribers by their IDs and URLs. If we use Vec, we need to iterate through the list to find the subscriber with the correct ID or URL, which is less efficient.
+
+3. When programming using Rust, we are enforced by rigorous compiler constraints to make a thread-safe program. In the case of the List of Subscribers (SUBSCRIBERS) static variable, we used the DashMap external library for thread safe HashMap. Explain based on your understanding of design patterns, do we still need DashMap or we can implement Singleton pattern instead?
+
+    **Answer:**
+    We still need DashMap. Singleton pattern is used to ensure that a class has only one instance and provide a global point of access to it. In this case, we need DashMap to store the subscribers and their URLs. Singleton pattern is not suitable for this case because we need to store multiple subscribers and their URLs.
+
 
 #### Reflection Publisher-2
+1. In the Model-View Controller (MVC) compound pattern, there is no “Service” and “Repository”. Model in MVC covers both data storage and business logic. Explain based on your understanding of design principles, why we need to separate “Service” and “Repository” from a Model?
+
+    **Answer:**
+    Since by separating "Service" and "Repository" from a Model, we can separate the business logic and data access logic from the data storage and data structure. This way, we can make the code more modular and easier to maintain.
+
+2. What happens if we only use the Model? Explain your imagination on how the interactions between each model (Program, Subscriber, Notification) affect the code complexity for each model?
+
+    **Answer:**
+    If we only use the Model, the business logic and data access logic will be mixed with the data storage and data structure. This will make the code more complex and harder to maintain. The interactions between each model will be more complex and harder to understand. The code complexity for each model will increase because the business logic and data access logic are mixed with the data storage and data structure.
+
+3. Have you explored more about Postman? Tell us how this tool helps you to test your current work. You might want to also list which features in Postman you are interested in or feel like it is helpful to help your Group Project or any of your future software engineering projects.
+
+    **Answer:**
+    Yes, I have explored more about Postman. Postman helps me to
+    test my current work by allowing me to send HTTP requests to the server and see the responses. Postman is helpful to help my Group Project because it allows me to test the endpoints of the server and see the responses. I am interested in the feature of Postman that allows me to save the requests and responses as collections. This feature is helpful to save the requests and responses for future reference.
 
 #### Reflection Publisher-3
+1. In this tutorial, we used RwLock<> to synchronise the use of Vec of Notifications. Explain why it is necessary for this case, and explain why we do not use Mutex<> instead?
+
+    **Answer:**
+    It is necessary to use RwLock<> to synchronize the use of Vec of Notifications because RwLock<> allows multiple readers or one writer at a time. This way, we can have multiple subscribers reading the notifications and one publisher writing the notifications. We do not use Mutex<> because Mutex<> only allows one thread to access the data at a time. This will make the code less efficient because only one subscriber can read the notifications at a time.
+
+2. In this tutorial, we used lazy_static external library to define Vec and DashMap as a “static” variable. Compared to Java where we can mutate the content of a static variable via a static function, why did not Rust allow us to do so?
+
+    **Answer:**
+    Rust does not allow us to mutate the content of a static variable because it is not thread-safe. Rust enforces strict rules to ensure that the code is thread-safe. If we mutate the content of a static variable via a static function, it may cause
