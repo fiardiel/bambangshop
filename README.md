@@ -111,12 +111,17 @@ This is the place for you to write reflections:
     test my current work by allowing me to send HTTP requests to the server and see the responses. Postman is helpful to help my Group Project because it allows me to test the endpoints of the server and see the responses. I am interested in the feature of Postman that allows me to save the requests and responses as collections. This feature is helpful to save the requests and responses for future reference.
 
 #### Reflection Publisher-3
-1. In this tutorial, we used RwLock<> to synchronise the use of Vec of Notifications. Explain why it is necessary for this case, and explain why we do not use Mutex<> instead?
+1. Observer Pattern has two variations: Push model (publisher pushes data to subscribers) and Pull model (subscribers pull data from publisher). In this tutorial case, which variation of Observer Pattern that we use?
 
     **Answer:**
-    It is necessary to use RwLock<> to synchronize the use of Vec of Notifications because RwLock<> allows multiple readers or one writer at a time. This way, we can have multiple subscribers reading the notifications and one publisher writing the notifications. We do not use Mutex<> because Mutex<> only allows one thread to access the data at a time. This will make the code less efficient because only one subscriber can read the notifications at a time.
+    In this tutorial case, we use the Push model of Observer Pattern. The publisher sends the notification to the subscribers when a product is created, promoted, or deleted.
 
-2. In this tutorial, we used lazy_static external library to define Vec and DashMap as a “static” variable. Compared to Java where we can mutate the content of a static variable via a static function, why did not Rust allow us to do so?
+2. What are the advantages and disadvantages of using the other variation of Observer Pattern for this tutorial case? (example: if you answer Q1 with Push, then imagine if we used Pull)
 
     **Answer:**
-    Rust does not allow us to mutate the content of a static variable because it is not thread-safe. Rust enforces strict rules to ensure that the code is thread-safe. If we mutate the content of a static variable via a static function, it may cause
+    The advantage of using the Pull model of Observer Pattern is that the subscribers can request the notification when they need it. This way, the subscribers can control when they receive the notification. The disadvantage of using the Pull model is that the subscribers need to poll the publisher periodically to check if there is a new notification. This can lead to inneficiency if the subscribers need to check the publisher frequently.
+
+3. Explain what will happen to the program if we decide to not use multi-threading in the notification process.
+
+    **Answer:**
+    This will make the program slow since you need to send the nofitication to each subscriber non-concurrently. Whereas if you use multi-threading, you can send the notification to each subscriber concurrently, which will make the program faster.
